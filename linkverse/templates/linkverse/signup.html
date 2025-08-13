@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Linkverse</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #f8fafc;
+            --text-color: #1e293b;
+            --light-gray: #e2e8f0;
+            --success-color: #10b981;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .auth-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: none;
+        }
+        
+        .auth-illustration {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            height: 100%;
+        }
+        
+        .auth-illustration img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .auth-illustration h2 {
+            margin-top: 2rem;
+            font-weight: 600;
+        }
+        
+        .auth-illustration p {
+            opacity: 0.9;
+            text-align: center;
+        }
+        
+        .auth-form {
+            padding: 3rem;
+        }
+        
+        .auth-form h2 {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            transition: all 0.2s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+        }
+        
+        .form-floating label {
+            padding: 0.75rem 1rem;
+            color: #64748b;
+        }
+        
+        .form-floating>.form-control:focus~label,
+        .form-floating>.form-control:not(:placeholder-shown)~label {
+            transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.75rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .divider-text {
+            padding: 0 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .social-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .social-btn.google {
+            background-color: white;
+            color: #db4437;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .social-btn.google:hover {
+            background-color: #f8fafc;
+        }
+        
+        .social-btn.facebook {
+            background-color: #1877f2;
+            color: white;
+            border: 1px solid #1877f2;
+        }
+        
+        .social-btn.facebook:hover {
+            background-color: #166fe5;
+        }
+        
+        .password-strength {
+            height: 4px;
+            background-color: var(--light-gray);
+            border-radius: 2px;
+            margin-top: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .password-requirements {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        
+        .requirement i {
+            margin-right: 0.25rem;
+            font-size: 0.6rem;
+        }
+        
+        .requirement.valid {
+            color: var(--success-color);
+        }
+        
+        .footer {
+            background-color: white;
+            padding: 1.5rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 992px) {
+            .auth-illustration {
+                display: none;
+            }
+            
+            .auth-form {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-container {
+                padding: 1rem;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-link-45deg me-2"></i>Linkverse
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'signup' %}">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="auth-container">
+        <div class="row g-0 auth-card shadow">
+            <!-- Illustration Column -->
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="auth-illustration">
+                    <img src="https://illustrations.popsy.co/amber/sign-up.svg" alt="Sign Up Illustration" width="300">
+                    <h2>Join Our Community</h2>
+                    <p>Create your account and start sharing your links with the world</p>
+                </div>
+            </div>
+            
+            <!-- Form Column -->
+            <div class="col-lg-6">
+                <div class="auth-form">
+                    <h2>Create your account</h2>
+                    
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <a href="#" class="social-btn google">
+                            <i class="bi bi-google"></i> Google
+                        </a>
+                        <a href="#" class="social-btn facebook">
+                            <i class="bi bi-facebook"></i> Facebook
+                        </a>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span class="divider-text">OR</span>
+                    </div>
+                    
+                    <!-- Error Messages -->
+                    {% if form.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        Please correct the errors below.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Signup Form -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Name Field -->
+                        <div class="mb-3 form-floating">
+                            <input type="text" 
+                                   class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                                   id="id_username" 
+                                   name="username" 
+                                   placeholder="Username"
+                                   required>
+                            <label for="id_username">Username</label>
+                            {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.username.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div class="mb-3 form-floating">
+                            <input type="email" 
+                                   class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+                                   id="id_email" 
+                                   name="email" 
+                                   placeholder="Email"
+                                   required>
+                            <label for="id_email">Email Address</label>
+                            {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.email.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Password Field -->
+                        <div class="mb-3 form-floating">
+                            <div class="input-group">
+                                <input type="password" 
+                                       class="form-control {% if form.password1.errors %}is-invalid{% endif %}" 
+                                       id="id_password1" 
+                                       name="password1" 
+                                       placeholder="Password"
+                                       required
+                                       oninput="checkPasswordStrength(this.value)">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword1">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <label for="id_password1">Password</label>
+                            </div>
+                            
+                            <!-- Password Strength Meter -->
+                            <div class="password-strength mt-2">
+                                <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                            </div>
+                            
+                            <!-- Password Requirements -->
+                            <div class="password-requirements">
+                                <div class="requirement" id="lengthReq">
+                                    <i class="bi bi-circle"></i>
+                                    <span>At least 8 characters</span>
+                                </div>
+                                <div class="requirement" id="numberReq">
+                                    <i class="bi bi-circle"></i>
+                                    <span>Contains a number</span>
+                                </div>
+                                <div class="requirement" id="specialReq">
+                                    <i class="bi bi-circle"></i>
+                                    <span>Contains a special character</span>
+                                </div>
+                            </div>
+                            
+                            {% if form.password1.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.password1.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Confirm Password Field -->
+                        <div class="mb-4 form-floating">
+                            <div class="input-group">
+                                <input type="password" 
+                                       class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                       id="id_password2" 
+                                       name="password2" 
+                                       placeholder="Confirm Password"
+                                       required
+                                       oninput="checkPasswordMatch(this.value)">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword2">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <label for="id_password2">Confirm Password</label>
+                            </div>
+                            <div class="text-muted small mt-1" id="passwordMatchText"></div>
+                            {% if form.password2.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.password2.errors.0 }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Terms Checkbox -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            Create Account
+                        </button>
+                        
+                        <!-- Login Link -->
+                        <p class="text-center text-muted">
+                            Already have an account? 
+                            <a href="{% url 'login' %}" class="text-primary text-decoration-none fw-semibold">Log in</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Linkverse. All rights reserved.</p>
+            <div class="mt-2">
+                <a href="#" class="text-decoration-none text-muted me-3">Terms</a>
+                <a href="#" class="text-decoration-none text-muted me-3">Privacy</a>
+                <a href="#" class="text-decoration-none text-muted">Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Toggle password visibility
+        function setupPasswordToggle(inputId, buttonId) {
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+            
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                }
+            });
+        }
+        
+        setupPasswordToggle('id_password1', 'togglePassword1');
+        setupPasswordToggle('id_password2', 'togglePassword2');
+        
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            const lengthReq = document.getElementById('lengthReq');
+            const numberReq = document.getElementById('numberReq');
+            const specialReq = document.getElementById('specialReq');
+            
+            let strength = 0;
+            let requirementsMet = 0;
+            
+            // Check length
+            if (password.length >= 8) {
+                strength += 30;
+                requirementsMet++;
+                lengthReq.classList.add('valid');
+                lengthReq.querySelector('i').className = 'bi bi-check-circle-fill';
+            } else {
+                lengthReq.classList.remove('valid');
+                lengthReq.querySelector('i').className = 'bi bi-circle';
+            }
+            
+            // Check for numbers
+            if (/\d/.test(password)) {
+                strength += 30;
+                requirementsMet++;
+                numberReq.classList.add('valid');
+                numberReq.querySelector('i').className = 'bi bi-check-circle-fill';
+            } else {
+                numberReq.classList.remove('valid');
+                numberReq.querySelector('i').className = 'bi bi-circle';
+            }
+            
+            // Check for special characters
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                strength += 40;
+                requirementsMet++;
+                specialReq.classList.add('valid');
+                specialReq.querySelector('i').className = 'bi bi-check-circle-fill';
+            } else {
+                specialReq.classList.remove('valid');
+                specialReq.querySelector('i').className = 'bi bi-circle';
+            }
+            
+            // Update strength bar
+            strengthBar.style.width = strength + '%';
+            
+            // Update strength bar color
+            if (strength < 50) {
+                strengthBar.style.backgroundColor = '#ef4444'; // red
+            } else if (strength < 80) {
+                strengthBar.style.backgroundColor = '#f59e0b'; // amber
+            } else {
+                strengthBar.style.backgroundColor = '#10b981'; // emerald
+            }
+        }
+        
+        // Password match checker
+        function checkPasswordMatch(confirmPassword) {
+            const password = document.getElementById('id_password1').value;
+            const matchText = document.getElementById('passwordMatchText');
+            
+            if (confirmPassword === '') {
+                matchText.textContent = '';
+                return;
+            }
+            
+            if (password === confirmPassword) {
+                matchText.textContent = 'Passwords match!';
+                matchText.style.color = '#10b981';
+            } else {
+                matchText.textContent = 'Passwords do not match';
+                matchText.style.color = '#ef4444';
+            }
+        }
+        
+        // Form validation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,306 @@
+{% extends 'linkverse/base_logged_in.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <!-- Dashboard Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0 text-gradient-primary">Creator Dashboard</h1>
+    <div class="dropdown">
+      <button class="btn btn-gradient-purple dropdown-toggle text-white" type="button" id="dashboardDropdown" data-bs-toggle="dropdown">
+        <i class="bi bi-calendar-range me-1"></i> Last 30 Days
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow-lg">
+        <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+        <li><a class="dropdown-item active bg-gradient-primary text-white" href="#">Last 30 Days</a></li>
+        <li><a class="dropdown-item" href="#">Last 90 Days</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">All Time</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 dashboard-card bg-gradient-orange text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="text-uppercase small mb-1 text-white-75">Total Links</h6>
+              <h3 class="mb-0">{{ total_links }}</h3>
+            </div>
+            <div class="bg-white bg-opacity-20 p-2 rounded-circle">
+              <i class="bi bi-link-45deg fs-4"></i>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="small text-white"><i class="bi bi-arrow-up"></i> 12% from last month</span>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'link_list' %}" class="text-white small stretched-link">View all links</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 dashboard-card bg-gradient-teal text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="text-uppercase small mb-1 text-white-75">Total Categories</h6>
+              <h3 class="mb-0">{{ total_categories }}</h3>
+            </div>
+            <div class="bg-white bg-opacity-20 p-2 rounded-circle">
+              <i class="bi bi-collection fs-4"></i>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="small text-white"><i class="bi bi-arrow-up"></i> 5% from last month</span>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="{% url 'category_list' %}" class="text-white small stretched-link">View all categories</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 dashboard-card bg-gradient-pink text-white">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="text-uppercase small mb-1 text-white-75">Total Clicks</h6>
+              <h3 class="mb-0">{{ total_clicks }}</h3>
+            </div>
+            <div class="bg-white bg-opacity-20 p-2 rounded-circle">
+              <i class="bi bi-cursor fs-4"></i>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="small text-white"><i class="bi bi-arrow-up"></i> 24% from last month</span>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pt-0">
+          <a href="#" class="text-white small stretched-link">View analytics</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Links Section -->
+  <div class="card border-0 shadow-lg mb-4 overflow-hidden">
+    <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center py-3">
+      <h3 class="h5 mb-0">Recent Links</h3>
+      <a href="{% url 'create_link' %}" class="btn btn-light btn-sm">
+        <i class="bi bi-plus-lg me-1"></i> New Link
+      </a>
+    </div>
+    <div class="card-body bg-light-soft">
+      {% if recent_links %}
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for link in recent_links %}
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm hover-lift">
+            <div class="position-relative">
+              <img src="{{ link.image.url }}" class="card-img-top" alt="{{ link.title }}" style="height: 160px; object-fit: cover;">
+              <span class="badge bg-primary position-absolute top-0 end-0 m-2">
+                <i class="bi bi-eye me-1"></i> {{ link.click_count|default:"0" }}
+              </span>
+            </div>
+            <div class="card-body">
+              <h6 class="card-title clamp-1-line">{{ link.title }}</h6>
+              <p class="card-text text-muted small clamp-2-lines">{{ link.description }}</p>
+            </div>
+            <div class="card-footer bg-white border-0 pt-0">
+              <div class="d-flex justify-content-between">
+                <span class="badge bg-gradient-teal text-white">{{ link.category.name|default:"Uncategorized" }}</span>
+                <a href="{% url 'update_link' link.pk %}" class="text-primary small">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-5">
+        <i class="bi bi-link-45deg text-primary fs-1"></i>
+        <h5 class="mt-3">No Links Yet</h5>
+        <p class="text-muted">Create your first link to get started</p>
+        <a href="{% url 'create_link' %}" class="btn btn-gradient-primary text-white mt-2">
+          <i class="bi bi-plus-lg me-1"></i> Create Link
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-lg h-100 overflow-hidden">
+        <div class="card-header bg-gradient-success text-white">
+          <h3 class="h5 mb-0">Quick Actions</h3>
+        </div>
+        <div class="card-body bg-light-soft">
+          <div class="d-grid gap-3">
+            <a href="{% url 'create_link' %}" class="btn btn-outline-primary text-start btn-hover-gradient">
+              <i class="bi bi-plus-circle me-2"></i> Create New Link
+            </a>
+            <a href="{% url 'create_category' %}" class="btn btn-outline-success text-start btn-hover-gradient">
+              <i class="bi bi-folder-plus me-2"></i> Create New Category
+            </a>
+            <a href="#" class="btn btn-outline-info text-start btn-hover-gradient">
+              <i class="bi bi-bar-chart me-2"></i> View Analytics
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card border-0 shadow-lg h-100 overflow-hidden">
+        <div class="card-header bg-gradient-warning text-white">
+          <h3 class="h5 mb-0">Top Performing Links</h3>
+        </div>
+        <div class="card-body bg-light-soft">
+          {% if top_links %}
+          <div class="list-group list-group-flush">
+            {% for link in top_links %}
+            <a href="#" class="list-group-item list-group-item-action border-0 bg-transparent">
+              <div class="d-flex align-items-center">
+                <div class="position-relative me-3">
+                  <img src="{{ link.image.url }}" class="rounded" width="40" height="40" style="object-fit: cover;">
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ forloop.counter }}
+                  </span>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-0 clamp-1-line">{{ link.title }}</h6>
+                  <small class="text-muted">{{ link.click_count }} clicks</small>
+                </div>
+                <i class="bi bi-chevron-right text-muted"></i>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="text-center py-4">
+            <i class="bi bi-activity text-warning fs-1"></i>
+            <p class="text-muted mt-2">No performance data yet</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Custom styles */
+  :root {
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-orange: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    --gradient-teal: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-pink: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    --gradient-success: linear-gradient(135deg, #3bb78f 0%, #0bab64 100%);
+    --gradient-warning: linear-gradient(135deg, #f6e05e 0%, #d69e2e 100%);
+    --gradient-purple: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);
+    --light-soft: rgba(248, 250, 252, 0.8);
+  }
+  
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-orange {
+    background: var(--gradient-orange);
+  }
+  
+  .bg-gradient-teal {
+    background: var(--gradient-teal);
+  }
+  
+  .bg-gradient-pink {
+    background: var(--gradient-pink);
+  }
+  
+  .bg-gradient-success {
+    background: var(--gradient-success);
+  }
+  
+  .bg-gradient-warning {
+    background: var(--gradient-warning);
+  }
+  
+  .bg-gradient-purple {
+    background: var(--gradient-purple);
+  }
+  
+  .bg-light-soft {
+    background: var(--light-soft);
+  }
+  
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+  
+  .dashboard-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px !important;
+    overflow: hidden;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px !important;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .btn-hover-gradient:hover {
+    color: white !important;
+    background: var(--gradient-primary);
+    border-color: transparent;
+  }
+  
+  .clamp-1-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .clamp-2-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .card-img-top {
+      height: 140px !important;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-3px);
+    }
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'linkverse/base_logged_in.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+
+        <!-- Back Button at the right corner -->
+        <div class="d-flex justify-content-end">
+          <a href="#" class="btn btn-secondary">Back</a>
+        </div>
+
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+          <h4>Update A Link </h4>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Links</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Update Category</li>
+          </ol>
+        </nav>
+
+        <!-- Card with form -->
+        <div class="card">
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              
+              <div class="mb-3">
+                {{ form.as_p }}
+              </div>
+
+              <button type="submit" class="btn btn-primary">Update Category</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

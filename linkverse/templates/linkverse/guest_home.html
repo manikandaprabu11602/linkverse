@@ -1,0 +1,13 @@
+{% extends 'linkverse/base_guest.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+    <h1 class="display-4 fw-bold text-white mb-3">Welcome to Social Links! 🚀</h1>
+    <p class="lead text-white-50 mb-4">Please log in or sign up to unlock more features and manage your links easily.</p>
+    
+    <div class="d-flex gap-3">
+        <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg rounded-pill px-4">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-light btn-lg rounded-pill px-4">Sign Up</a>
+    </div>
+</div>
+{% endblock %}

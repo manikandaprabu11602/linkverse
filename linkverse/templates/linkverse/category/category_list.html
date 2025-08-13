@@ -1,0 +1,239 @@
+{% extends 'linkverse/base_logged_in.html' %}
+
+{% block content %}
+<div class="container mt-4 mt-md-5">
+  <!-- Floating action button for mobile -->
+  <div class="d-block d-sm-none floating-action">
+    <a href="{% url 'create_category' %}" class="btn btn-success btn-lg rounded-circle shadow-lg">
+      <i class="bi bi-plus"></i>
+    </a>
+  </div>
+
+  <!-- Header with modern typography -->
+  <div class="d-flex justify-content-between align-items-center mb-4 mb-md-5">
+    <div>
+      <h2 class="h3 mb-1 fw-bold text-gradient">Your Categories</h2>
+      <p class="text-muted mb-0">Organize your digital universe</p>
+    </div>
+    <a href="{% url 'create_category' %}" class="btn btn-success d-none d-sm-inline-flex align-items-center">
+      <i class="bi bi-plus-lg me-2"></i> New Category
+    </a>
+  </div>
+
+  <!-- Modern Category Grid -->
+  {% if categories %}
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    {% for category in categories %}
+      <div class="col">
+        <div class="category-card glass-card rounded-4 overflow-hidden h-100 d-flex flex-column">
+          <!-- Image with parallax hover effect -->
+          <div class="category-image-wrapper position-relative overflow-hidden">
+            <div class="parallax-image" style="background-image: url('{{ category.image.url }}');"></div>
+            <div class="category-overlay"></div>
+            <h3 class="category-title position-absolute text-white fw-bold">{{ category.name }}</h3>
+          </div>
+          
+          <!-- Content with subtle animation -->
+          <div class="category-content p-4 flex-grow-1 d-flex flex-column">
+            <p class="text-muted mb-3">{{ category.description|default:"No description" }}</p>
+            
+            <!-- Animated action buttons -->
+            <div class="mt-auto d-flex justify-content-end gap-2 pt-3">
+              <a href="{% url 'update_category' category.pk %}" class="btn btn-sm btn-icon btn-outline-light rounded-pill">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a href="{% url 'delete_category' category.pk %}" class="btn btn-sm btn-icon btn-outline-light rounded-pill">
+                <i class="bi bi-trash"></i>
+              </a>
+              <a href="#" class="btn btn-sm btn-primary rounded-pill flex-grow-1">
+                View Links <i class="bi bi-arrow-right ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <!-- Empty state with modern illustration -->
+  {% else %}
+  <div class="empty-state modern-empty text-center py-5 my-5">
+    <div class="empty-illustration mb-4">
+      <svg width="180" height="180" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4H4V8H8V4Z" fill="currentColor" class="text-primary"/>
+        <path d="M14 4H10V8H14V4Z" fill="currentColor" class="text-success"/>
+        <path d="M20 4H16V8H20V4Z" fill="currentColor" class="text-warning"/>
+        <path d="M8 10H4V14H8V10Z" fill="currentColor" class="text-info"/>
+        <path d="M14 10H10V14H14V10Z" fill="currentColor" class="text-danger"/>
+        <path d="M20 10H16V14H20V10Z" fill="currentColor" class="text-secondary"/>
+        <path d="M8 16H4V20H8V16Z" fill="currentColor" class="text-purple"/>
+        <path d="M14 16H10V20H14V16Z" fill="currentColor" class="text-pink"/>
+        <path d="M20 16H16V20H20V16Z" fill="currentColor" class="text-teal"/>
+      </svg>
+    </div>
+    <h3 class="h4 fw-bold mb-3">No categories yet</h3>
+    <p class="text-muted mb-4">Start organizing your links into beautiful collections</p>
+    <a href="{% url 'create_category' %}" class="btn btn-primary btn-lg px-4 rounded-pill">
+      <i class="bi bi-plus-lg me-2"></i> Create First Category
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  /* Modern color variables */
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --text-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --transition-all: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  }
+
+  /* Text gradient for headings */
+  .text-gradient {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  /* Glass morphism card */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition-all);
+    transform: translateY(0);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+  }
+
+  /* Category image with parallax effect */
+  .category-image-wrapper {
+    height: 140px;
+    width: 100%;
+  }
+
+  .parallax-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s ease-out;
+  }
+
+  .category-card:hover .parallax-image {
+    transform: scale(1.1);
+  }
+
+  .category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+  }
+
+  .category-title {
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  /* Button styles */
+  .btn-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .btn-outline-light {
+    border-color: rgba(255,255,255,0.3);
+    color: white;
+  }
+
+  .btn-outline-light:hover {
+    background: rgba(255,255,255,0.1);
+  }
+
+  /* Floating action button */
+  .floating-action {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .floating-action .btn {
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 6px 20px rgba(25, 135, 84, 0.3);
+  }
+
+  /* Empty state styling */
+  .modern-empty {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .empty-illustration svg {
+    opacity: 0.8;
+  }
+
+  .empty-illustration path {
+    opacity: 0.8;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .category-image-wrapper {
+      height: 120px;
+    }
+    
+    .category-title {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Animation for empty state */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .empty-illustration {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  // Add subtle parallax effect on mouse move
+  document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(-8px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(-8px)';
+    });
+  });
+</script>
+{% endblock %}
