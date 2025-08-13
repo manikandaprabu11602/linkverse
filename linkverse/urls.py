@@ -14,6 +14,7 @@ urlpatterns = [
     path('category-list/', views.category_list, name='category_list'),
     path('update-category/<int:pk>/', views.update_category, name='update_category'),
     path('delete-category/<int:pk>/', views.delete_category, name='delete_category'),
+    path('category/<int:pk>/links/', views.category_links, name='category_links'),
 
     # Link URLs
     path('create-link/', views.create_link, name='create_link'),

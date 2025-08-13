@@ -79,6 +79,19 @@ def category_list(request):
     return render(request, 'linkverse/category/category_list.html', {'categories': categories})
 
 @login_required
+def category_links(request, pk):
+    # Get the category or show 404 if not found
+    category = get_object_or_404(LinkCategory, pk=pk)
+    
+    # Get all links in this category
+    links = Link.objects.filter(category=category, user=request.user)
+
+    return render(request, 'linkverse/category/category_links.html', {
+        'category': category,
+        'links': links
+    })
+
+@login_required
 def update_category(request, pk):
     category = get_object_or_404(LinkCategory, pk=pk)
     if request.method == 'POST':

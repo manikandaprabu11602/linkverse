@@ -1,0 +1,107 @@
+{% extends 'linkverse/base_logged_in.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-4">
+
+    <!-- Page Header with Gradient -->
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="mb-1 display-5 fw-bold text-gradient">
+                <i class="bi bi-folder2-open me-2"></i>{{ category.name }}
+            </h2>
+            <p class="text-muted">{{ links|length }} link{{ links|pluralize }} in this collection</p>
+        </div>
+        <a href="{% url 'category_list' %}" class="btn btn-light rounded-pill px-4 py-2 shadow-sm">
+            <i class="bi bi-arrow-left me-1"></i> All Categories
+        </a>
+    </div>
+
+    {% if links %}
+        <div class="row g-4">
+            {% for link in links %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 h-100 hover-scale shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start mb-3">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-4 me-3">
+                                    <i class="bi bi-link-45deg text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title fw-bold mb-1">{{ link.title }}</h5>
+                                    <p class="text-muted small mb-2">
+                                        <i class="bi bi-calendar me-1"></i> {{ link.created_at|date:"M d, Y" }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ link.url }}" target="_blank" class="btn btn-primary rounded-pill px-4">
+                                    Visit <i class="bi bi-box-arrow-up-right ms-1"></i>
+                                </a>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-light rounded-circle" type="button" data-bs-toggle="dropdown">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-tag me-2"></i>Change Category</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state text-center py-5">
+            <div class="empty-state-icon bg-soft-primary rounded-4 p-4 d-inline-block mb-3">
+                <i class="bi bi-folder-x text-primary fs-1"></i>
+            </div>
+            <h3 class="fw-bold mb-3">No links here yet</h3>
+            <p class="text-muted mb-4">This category is empty. Start by adding your first link.</p>
+            <a href="#" class="btn btn-primary rounded-pill px-4">
+                <i class="bi bi-plus-lg me-1"></i> Add New Link
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+
+<style>
+    /* Custom styles for modern look */
+    .text-gradient {
+        background: linear-gradient(90deg, #4f46e5, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .hover-scale {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-radius: 12px;
+    }
+    
+    .hover-scale:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .empty-state {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .empty-state-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .empty-state:hover .empty-state-icon {
+        transform: scale(1.1);
+    }
+    
+    .bg-soft-primary {
+        background-color: rgba(79, 70, 229, 0.1);
+    }
+</style>
+{% endblock %}

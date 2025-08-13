@@ -1,13 +1,339 @@
 {% extends 'linkverse/base_guest.html' %}
+{% load static %}
+
+{% block title %}Social Links | Modern Link Management Platform{% endblock %}
 
 {% block content %}
-<div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
-    <h1 class="display-4 fw-bold text-white mb-3">Welcome to Social Links! 🚀</h1>
-    <p class="lead text-white-50 mb-4">Please log in or sign up to unlock more features and manage your links easily.</p>
-    
-    <div class="d-flex gap-3">
-        <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg rounded-pill px-4">Login</a>
-        <a href="{% url 'signup' %}" class="btn btn-light btn-lg rounded-pill px-4">Sign Up</a>
+<!-- Hero Section -->
+<section class="hero-section py-8 py-lg-10 mt-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-medium">
+                    <i class="bi bi-stars me-1"></i> Most loved link platform
+                </span>
+                <h1 class="display-3 fw-bold mb-4">
+                    Organize, Share & Monetize Your 
+                    <span class="text-gradient">Links</span>
+                </h1>
+                <p class="lead text-muted mb-5">
+                    The ultimate link management platform for creators, businesses, and everyone in between. 
+                    Beautiful profiles, powerful analytics, and seamless integration.
+                </p>
+                
+                <div class="d-flex flex-wrap gap-3 mb-5">
+                    <a href="{% url 'signup' %}" class="btn btn-gradient btn-lg rounded-pill px-4 shadow-sm">
+                        Get Started - It's Free <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                    <a href="#features" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                        Explore Features
+                    </a>
+                </div>
+                
+                <div class="d-flex align-items-center text-muted">
+                    <div class="d-flex me-4">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" class="rounded-circle border border-2 border-white" width="36" height="36">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle border border-2 border-white ms-n2" width="36" height="36">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle border border-2 border-white ms-n2" width="36" height="36">
+                    </div>
+                    <div>
+                        <span class="fw-medium text-white">Trusted by 50,000+ users</span>
+                        <div class="d-flex text-warning small">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <span class="text-white-60 ms-2">4.9/5 (2,458 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <div class="card-glass gradient-border p-3">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" 
+                             class="img-fluid rounded-3 shadow" alt="Social Links Dashboard">
+                    </div>
+                    <div class="position-absolute bottom-0 start-0 translate-middle-y ms-5 d-none d-lg-block">
+                        <div class="card-glass p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                                    <i class="bi bi-graph-up text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">+285%</h6>
+                                    <small class="text-muted">Avg. click increase</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-absolute top-0 end-0 translate-middle-x me-5 d-none d-lg-block">
+                        <div class="card-glass p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-success bg-opacity-10 p-2 rounded-3 me-3">
+                                    <i class="bi bi-lightning text-success fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0 fw-bold">3.2s</h6>
+                                    <small class="text-muted">Avg. load time</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
+<!-- Logo Cloud Section -->
+<section class="py-5 bg-darker">
+    <div class="container">
+        <p class="text-center text-uppercase small text-muted mb-4">TRUSTED BY INNOVATIVE TEAMS</p>
+        <div class="row g-4 justify-content-center align-items-center">
+            <div class="col-auto">
+                <img src="https://logo.clearbit.com/spotify.com" height="24" alt="Spotify" class="img-fluid opacity-60 hover-scale">
+            </div>
+            <div class="col-auto">
+                <img src="https://logo.clearbit.com/slack.com" height="24" alt="Slack" class="img-fluid opacity-60 hover-scale">
+            </div>
+            <div class="col-auto">
+                <img src="https://logo.clearbit.com/dropbox.com" height="24" alt="Dropbox" class="img-fluid opacity-60 hover-scale">
+            </div>
+            <div class="col-auto">
+                <img src="https://logo.clearbit.com/zoom.us" height="24" alt="Zoom" class="img-fluid opacity-60 hover-scale">
+            </div>
+            <div class="col-auto">
+                <img src="https://logo.clearbit.com/shopify.com" height="24" alt="Shopify" class="img-fluid opacity-60 hover-scale">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-8">
+    <div class="container">
+        <div class="text-center mb-7">
+            <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-medium">
+                Powerful Features
+            </span>
+            <h2 class="display-5 fw-bold mb-3">Everything You Need for Link Success</h2>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Advanced tools to organize, share, and track your links with beautiful analytics and customization.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary mb-4">
+                        <i class="bi bi-collection fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Smart Categories</h3>
+                    <p class="text-muted mb-0">Organize your links into beautiful collections that make sense for your audience.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-success bg-opacity-10 text-success mb-4">
+                        <i class="bi bi-bar-chart fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Advanced Analytics</h3>
+                    <p class="text-muted mb-0">See exactly who's clicking your links with real-time tracking and reporting.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-info bg-opacity-10 text-info mb-4">
+                        <i class="bi bi-palette fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Custom Branding</h3>
+                    <p class="text-muted mb-0">Make it yours with custom colors, logos, and domain for a professional look.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-warning bg-opacity-10 text-warning mb-4">
+                        <i class="bi bi-share fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Smart Sharing</h3>
+                    <p class="text-muted mb-0">One link to rule them all - share all your content from a single beautiful page.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-danger bg-opacity-10 text-danger mb-4">
+                        <i class="bi bi-lock fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Link Security</h3>
+                    <p class="text-muted mb-0">Password protection, expiration dates, and spam detection keep your links safe.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="icon-box bg-purple bg-opacity-10 text-purple mb-4">
+                        <i class="bi bi-currency-dollar fs-3"></i>
+                    </div>
+                    <h3 class="h4 fw-bold mb-3">Monetization</h3>
+                    <p class="text-muted mb-0">Earn money from your links with our built-in affiliate and sponsorship features.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-8 bg-darker">
+    <div class="container">
+        <div class="text-center mb-7">
+            <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-medium">
+                User Testimonials
+            </span>
+            <h2 class="display-5 fw-bold mb-3">Loved by Creators Worldwide</h2>
+            <p class="lead text-muted mx-auto" style="max-width: 700px;">
+                Join thousands of satisfied users who transformed their link sharing experience.
+            </p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0 fw-bold">Sarah Johnson</h5>
+                            <small class="text-muted">Content Creator</small>
+                        </div>
+                    </div>
+                    <p class="mb-0">"Social Links helped me organize all my affiliate links in one place. My click-through rates increased by 300%!"</p>
+                    <div class="mt-3 text-warning">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0 fw-bold">Michael Chen</h5>
+                            <small class="text-muted">Digital Marketer</small>
+                        </div>
+                    </div>
+                    <p class="mb-0">"The analytics alone are worth the price. I can finally see which links perform best across all my campaigns."</p>
+                    <div class="mt-3 text-warning">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card-glass h-100 p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" class="rounded-circle me-3" width="50" height="50">
+                        <div>
+                            <h5 class="mb-0 fw-bold">Jessica Williams</h5>
+                            <small class="text-muted">Small Business Owner</small>
+                        </div>
+                    </div>
+                    <p class="mb-0">"My customers love my branded link page. It looks so professional and makes it easy to find all my services."</p>
+                    <div class="mt-3 text-warning">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-8 bg-gradient-primary text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4">Ready to Transform Your Link Sharing?</h2>
+                <p class="lead mb-5 opacity-75">Join thousands of creators, marketers, and businesses who trust Social Links to manage their most important links.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{% url 'signup' %}" class="btn btn-light btn-lg rounded-pill px-5 shadow-sm">
+                        Get Started Free <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                    <a href="#" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                        See Pricing
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .bg-darker {
+        background-color: var(--bs-darker-bg);
+    }
+    
+    .bg-gradient-primary {
+        background: var(--bs-gradient);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .bg-gradient-primary::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+        z-index: 0;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .icon-box {
+        width: 56px;
+        height: 56px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+    
+    .card-glass {
+        transition: all 0.3s ease;
+    }
+    
+    .card-glass:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+</style>
 {% endblock %}
