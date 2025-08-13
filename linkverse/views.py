@@ -75,6 +75,7 @@ def create_category(request):
 @login_required
 def category_list(request):
     categories = LinkCategory.objects.all()
+    links = Link.objects.filter(user=request.user)
     return render(request, 'linkverse/category/category_list.html', {'categories': categories})
 
 @login_required
@@ -117,7 +118,7 @@ def create_link(request):
 
 @login_required
 def link_list(request):
-    links = Link.objects.all()
+    links = Link.objects.filter(user=request.user)
     return render(request, 'linkverse/links/link_list.html', {'links': links})
 
 @login_required
